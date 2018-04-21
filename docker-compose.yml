@@ -3,7 +3,7 @@ version: '3.5'
 services:
   app:
     container_name: p2-app
-    image: php:5.6-apache
+    image: josephmart/php56
     ports:
       - "80:80"
       - "443:443"

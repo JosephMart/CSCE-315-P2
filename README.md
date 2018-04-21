@@ -10,6 +10,16 @@
 docker-compose up
 ```
 
+## Add proper IP
+
+Find DB address. If TAMU it will be `database.cs.tamu.edu`.
+If local dev you can find it as follows
+
+```bash
+docker-compose exec mariadb sh # ssh into the container
+hostname -I # this will spit out the IP address you will need to added to the common methods file
+```
+
 ## File Structure
 ```
 .
