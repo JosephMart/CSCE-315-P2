@@ -1,0 +1,57 @@
+#!/usr/bin/python
+import MySQLdb
+import time
+from datetime import datetime
+from pyfirmata import Arduino, util
+from time import sleep
+
+# a string to store the log in information
+# so others can just revise this string
+
+
+# this function automatically adding a record to a table named 'test'
+# this record will contains an auto increment id and timestamp
+def add_record():
+	db = MySQLdb.connect(host = log_info[0],user = log_info[1],passwd = log_info[2],db = log_info[3]);
+	cursor = db.cursor();
+# also revise the table name if needed
+	sql = """INSERT INTO test () 
+			VALUES ()"""
+	try:
+		cursor.execute(sql)
+		db.commit();
+	except:
+		db.rollback();
+	db.close();
+
+
+# this function clears the auto increment
+# if we have an error in the sensor that's entering random values
+# we can quickly freeze the database and clear it
+def reset_id_auto_increment():
+	db = MySQLdb.connect(host = log_info[0],user = log_info[1],passwd = log_info[2],db = log_info[3]);
+	cursor = db.cursor();
+	sql = """ALTER TABLE test DROP id"""
+	try:
+		cursor.execute(sql)
+		db.commit();
+		sql = """ALTER TABLE test ADD id INT NOT NULL AUTO_INCREMENT PRIMARY KEY FIRST"""
+		cursor.execute(sql)
+		db.commit();
+	except:
+		db.rollback();
+	db.close();
+
+
+# the main function
+# because we haven't have any sensors to the arduino
+# We just have the arduino add 5 records in the database, add 1 per second.
+# the port maybe different in different computers
+port = '/dev/cu.usbmodem1421'
+board = Arduino(port)
+it = util.Iterator(board)
+it.start()
+for n in range(0,5):
+	sleep(1)
+	add_record()
+board.exit()

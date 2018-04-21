@@ -1,0 +1,6 @@
+CREATE TABLE `WalkingCounterDatabase` (
+ `Count` int(11) NOT NULL AUTO_INCREMENT,
+ `Date` date NOT NULL,
+ `Time` time NOT NULL,
+ PRIMARY KEY (`Count`)
+) ENGINE=InnoDB AUTO_INCREMENT=169 DEFAULT CHARSET=latin1

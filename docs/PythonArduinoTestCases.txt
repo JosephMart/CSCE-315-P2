@@ -1,0 +1,32 @@
+#ARDUINO INTERACTION WITH PYTHON TEST CASE
+
+#!/usr/bin/python
+import serial
+import time
+from datetime import datetime
+from time import sleep
+
+#The following line is for serial over GPIO
+port = 'COM4'
+ard = serial.Serial(port,9600,timeout=5)
+time.sleep(2)
+
+#reads a buffer line from Serial
+buffer = ard.readline()
+#buffer is necessary becuase you can start reading in the middle of a line being
+#printed to the Serial and get an out of range error or a can't convert string to float
+
+#this will read in 10 measurements done by the arduino sensors
+#from the Serial, then it will split the reading into two and print them in this form
+#"(sensor 1 Distance) (sensor 2 Distance)"
+n = 0
+while (n<10):
+	msg = ard.readline()
+	new_msg = msg.split(" ")
+	
+	first = float(new_msg[0])
+	second = float(new_msg[1])
+	
+	print first, second
+	n = n + 1
+#if 10 readings are printed then the test passes
