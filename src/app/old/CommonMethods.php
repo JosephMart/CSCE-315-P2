@@ -4,11 +4,11 @@ class Common
 {	
 	var $conn;
 	var $debug;
-	
-	var $db="";
-	var $dbname="";
-	var $user="";
-	var $pass="";
+
+    var $db = "database.cs.tamu.edu";
+    var $dbname = "josephmart";
+    var $user = "josephmart";
+    var $pass = "martinsen";
 			
 	function Common($debug)
 	{

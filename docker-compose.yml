@@ -9,8 +9,11 @@ services:
       - "443:443"
     volumes:
       - ./src/app:/var/www/html
-    links:
+    depends_on:
       - mariadb
+    environment:
+      MYSQL_IP: mariadb
+      DEV: 1
 
   mariadb:
     container_name: p2-mariadb
@@ -20,6 +23,9 @@ services:
       - ./schema.sql:/docker-entrypoint-initdb.d/schema.sql
     environment:
       MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: josephmart
+      MYSQL_USER: josephmart
+      MYSQL_PASSWORD: martinsen
     ports:
       - 3306:3306
 
