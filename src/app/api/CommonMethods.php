@@ -7,8 +7,8 @@ class Common
 
     var $db = "database.cs.tamu.edu";
     var $dbname = "josephmart";
-    var $user = "josephmart";
-    var $pass = "martinsen";
+    var $user = "root";
+    var $pass = "root";
 
     function Common($debug)
     {
