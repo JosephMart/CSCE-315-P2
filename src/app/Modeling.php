@@ -18,7 +18,7 @@ include_once "Partials.php";
         if (this.readyState == 4 && this.status == 200) {
             console.log(this.responseText);
             var data = JSON.parse(this.responseText);
-            graph(data);
+            graph(data.data, data.lot_num);
             console.log(data);
         }
     };
@@ -26,7 +26,7 @@ include_once "Partials.php";
     xhttp.open("GET", "api/Growth.php", true);
     xhttp.send();
 
-    function graph(list) {
+    function graph(list,Lot) {
         console.log(typeof list);
         google.charts.load('current', {'packages': ['corechart']});
         google.charts.setOnLoadCallback(drawChart);
@@ -36,7 +36,7 @@ include_once "Partials.php";
           var data = google.visualization.arrayToDataTable(list);
 
           var options = {
-            title: 'Projected growth of hourly rate in lot 31',
+            title: 'Projected growth of hourly rate in lot ' + Lot,
             curveType: 'function',
             legend: { position: 'bottom' },
             series : {
