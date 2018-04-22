@@ -1,9 +1,8 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: joseph
- * Date: 4/20/18
- * Time: 11:07 PM
- */
-    phpinfo();
-?>
+<?php include_once "Partials.php"; ?>
+<!DOCTYPE html>
+<html>
+<?= HtmlHeader("Home"); ?>
+<body>
+
+</body>
+</html>

@@ -6,13 +6,16 @@ class Common
 	var $debug;
 
     var $db = "database.cs.tamu.edu";
-    var $dbname = "josephmart";
-    var $user = "josephmart";
-    var $pass = "martinsen";
+    var $dbname = "legacy";
+    var $user = "root";
+    var $pass = "root";
 			
 	function Common($debug)
 	{
-		$this->debug = $debug; 
+		$this->debug = $debug;
+        if (getenv('DEV')) {
+            $this->db = getenv('MYSQL_IP');
+        }
 		$rs = $this->connect($this->user); // db name really here
 		return $rs;
 	}

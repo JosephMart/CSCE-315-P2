@@ -1,3 +1,14 @@
+<!DOCTYPE html>
+<html>
+<?php
+include_once "../Partials.php";
+HtmlHeader("Test");
+echo $this;
+?>
+<body>
+
+</body>
+</html>
 <?php
 /**
  * Created by PhpStorm.
@@ -17,5 +28,5 @@ $rs = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
 $total = $rs->rowCount();
 
 echo $total;
-
+?>
 
