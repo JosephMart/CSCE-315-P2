@@ -4,11 +4,9 @@ $hourly_rate = 123;
 $lot_num = "31";
 $growth_rate = 0.033;
 
+$req = json_decode(file_get_contents('php://input'), true);
 
-
-$debug = false;
-
-$COMMON = new Common($debug);
+$COMMON = new Common(false);
 
 // SQL statement for data
 $sql = <<< SQL
@@ -29,5 +27,6 @@ for($x = 0; $x <= 7; $x++){
 header('Content-type: application/json');
 echo json_encode([
 	"data" => $data,
-	"lot_num" =>$lot_num
+    "lot_num" =>$lot_num,
+    "title" => "Awesome Header"
 ]);
