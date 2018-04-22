@@ -1,9 +1,9 @@
 <?php
 include_once "CommonMethods.php";
 
-$debug = False;
+$req = json_decode(file_get_contents('php://input'), true);
 
-$COMMON = new Common($debug);
+$COMMON = new Common(false);
 
 // SQL statement for data
 $sql = <<< SQL
@@ -23,4 +23,7 @@ $data = [
 
 // Respond to the request
 header('Content-type: application/json');
-echo json_encode($data);
+echo json_encode([
+    "title" => "Awesome Header",
+    "data" => $data
+]);
