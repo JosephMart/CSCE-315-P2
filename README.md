@@ -1,14 +1,21 @@
 # CSCE 315 Project 2
 
-## Download docker
-* [Windows](https://store.docker.com/editions/community/docker-ce-desktop-windows)
+## Download Docker
+* [Windows 10](https://store.docker.com/editions/community/docker-ce-desktop-windows)
 * [MAC](https://store.docker.com/editions/community/docker-ce-desktop-mac)
 * [Ubuntu](https://store.docker.com/editions/community/docker-ce-server-ubuntu)
+* [Older Windows/MAC](https://docs.docker.com/toolbox/overview/)
 
-## Run docker image
+## Run Docker image
 ```bash
 docker-compose up
 ```
+
+## Addresses
+* PHPMyAdmin - localhost:8080
+* Webserver - localhost
+
+On Windows (?) you can find the ip my typing `docker-machine ip`
 
 ## Add proper IP
 
