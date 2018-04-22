@@ -1,33 +1,51 @@
-<?php include_once "Partials.php"; ?>
+<?php
+include_once "Partials.php";
+
+// Fetch data
+//var $url = $_SERVER['PHP_SELF'] ;
+//$response = http_get("/api/Growth.php", array("timeout"=>1), $info);
+//print_r($info);
+?>
 <!DOCTYPE html>
 <html>
 <?= HtmlHeader("Home"); ?>
 <body>
-	<div id="curve_chart" style="width: 900px; height: 500px"></div>
-	<script type="text/javascript">
-      google.charts.load('current', {'packages':['corechart']});
-      google.charts.setOnLoadCallback(drawChart);
+<div id="curve_chart" style="width: 900px; height: 500px"></div>
+<script type="text/javascript">
 
-      function drawChart() {
-        var data = google.visualization.arrayToDataTable([
-          ['Year', 'Sales', 'Expenses'],
-          ['2004',  1000,      400],
-          ['2005',  1170,      460],
-          ['2006',  660,       1120],
-          ['2007',  1030,      540]
-        ]);
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            var data = JSON.parse(this.responseText);
+            graph(data);
+            console.log(data);
+        }
+    };
 
-        var options = {
-          title: 'Company Performance',
-          curveType: 'function',
-          legend: { position: 'bottom' }
-        };
+    xhttp.open("GET", "api/Growth.php", true);
+    xhttp.send();
 
-        var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+    function graph(list) {
+        console.log(typeof list);
+        google.charts.load('current', {'packages': ['corechart']});
+        google.charts.setOnLoadCallback(drawChart);
 
-        chart.draw(data, options);
-      }
-    </script>
+        function drawChart() {
+            xhttp.open("GET", "api/Growth.php", true);
+            xhttp.send();
+
+            var data = google.visualization.arrayToDataTable(list);
+
+            var options = {
+                title: 'Company Performance',
+                curveType: 'function',
+                legend: {position: 'bottom'}
+            };
+            var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+            chart.draw(data, options);
+        }
+    };
+</script>
 </body>
 </html>
 

@@ -3,6 +3,6 @@
 <html>
 <?= HtmlHeader("Home"); ?>
 <body>
-
+<?php phpinfo() ?>
 </body>
 </html>
