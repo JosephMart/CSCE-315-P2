@@ -8,7 +8,7 @@
 <div class="container">
     <div class="section">
         <h1 class="title">Overall Data</h1>
-        <div class="grid-container">
+        <div class="grid-container-9">
             <div>
                 <h1 class="grid-title">Total Count</h1>
                 <p class="grid-count">12</p>

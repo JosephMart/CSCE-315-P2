@@ -1,6 +1,7 @@
 @import "sidenav.css";
 @import "analytics.css";
 @import "lotselector.css";
+@import "modal.css";
 @import url('https://fonts.googleapis.com/css?family=Ubuntu');
 
 body {
@@ -23,6 +24,25 @@ hr {
     border-top: 1px solid #ccc;
     margin: 1em 0;
     padding: 0;
+}
+
+.button {
+    background-color: #111;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    opacity: 0.6;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.button:hover {
+    opacity: 1;
 }
 
 .title {
@@ -64,14 +84,32 @@ hr {
     margin-bottom: 100px;
 }
 
-.grid-container {
+.grid-container-3 {
     display: grid;
     /*grid-template-columns: auto auto auto;*/
     grid-gap: 30px;
     padding: 0;
+    justify-content: space-evenly;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.grid-container-9 {
+    display: grid;
+    /*grid-template-columns: auto auto auto;*/
+    grid-gap: 30px;
+    padding: 0;
+    /*justify-items: center;*/
     grid-template-columns: repeat(9, 1fr);
 }
-.grid-container > div {
+.grid-container-9 > div {
+    background-color: rgba(255, 255, 255, 0.8);
+    text-align: center;
+    padding: 40px 0;
+    border-spacing: 20px;
+    font-size: 30px;
+}
+
+.grid-container-3 > div {
     background-color: rgba(255, 255, 255, 0.8);
     text-align: center;
     padding: 40px 0;
