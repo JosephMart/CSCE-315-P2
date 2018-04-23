@@ -33,8 +33,8 @@ function Sidebar() {
     return <<< HTML
     <div id="mySidenav" class="hidden">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <a href="/">Home</a>
-        <a href="#">Admin</a>
+        <a href="index.php">Home</a>
+        <a href="Admin.php">Admin</a>
     </div>
     <nav class="nav">
         <ul>
