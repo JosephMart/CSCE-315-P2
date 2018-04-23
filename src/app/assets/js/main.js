@@ -1,3 +1,4 @@
+// API
 function apiPost(endpoint, body, cb) {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
@@ -9,4 +10,13 @@ function apiPost(endpoint, body, cb) {
     xhttp.open("POST", "api/" + endpoint + ".php", true);
     xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     xhttp.send(JSON.stringify(body));
+}
+
+// Nav functions
+function openNav() {
+    document.getElementById("mySidenav").className = "sidenav";
+}
+
+function closeNav() {
+    document.getElementById("mySidenav").className= "navHidden";
 }

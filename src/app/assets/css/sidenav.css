@@ -1,0 +1,122 @@
+/* Side nav */
+.sidenav {
+    height: 100%;
+    width: 250px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    padding-top: 60px;
+
+    /* Animation */
+    animation-duration: .5s;
+    animation-name: slidein;
+}
+
+
+.navHidden .closebtn {
+    display: none;
+}
+
+.navHidden {
+    height: 100%;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    padding-top: 60px;
+    width: 0;
+
+    /* Animation */
+    animation-duration: .5s;
+    animation-name: slideout;
+}
+
+/* Animation slowly hide a tags*/
+.navHidden a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+
+    /* Animation */
+    animation-duration: .5s;
+    animation-name: disappear;
+}
+
+.sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+
+    /* Animation */
+    animation-duration: .5s;
+    animation-name: appear;
+}
+
+.sidenav a:hover {
+    color: #f1f1f1;
+}
+
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+/* Animation keyframes*/
+
+@keyframes slidein {
+    from {
+        width: 0;
+    }
+
+    to {
+        width: 250px;
+    }
+}
+
+@keyframes slideout {
+    from {
+        width: 250px;
+    }
+
+    to {
+        width: 0;
+    }
+}
+
+@keyframes appear {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 100%;
+    }
+}
+
+@keyframes disappear {
+    from {
+        opacity: 100%;
+    }
+
+    to {
+        opacity: 0;
+    }
+}
+
+/* Media */
+@media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+}
