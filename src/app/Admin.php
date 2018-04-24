@@ -22,6 +22,12 @@
         </div>
     </div>
 
+
+<!--    <div id="note">-->
+<!--        You smell good.<a id="close">[close]</a>-->
+<!--    </div>-->
+
+
     <div id="myModal" class="modal">
 
         <!-- Modal content -->
@@ -42,6 +48,11 @@
     </div>
 
     <script>
+        close = document.getElementById("close");
+        close.addEventListener('click', function() {
+            note = document.getElementById("note");
+            note.style.display = 'none';
+        }, false);
         // Get the modal
         var modal = document.getElementById('myModal');
 
