@@ -68,7 +68,7 @@
 <script>
     function handleLotClick(e) {
         console.log(e.target.id);
-        window.location.href = `/Lot.php?id=${e.target.id}`;
+        window.location.href = `Lot.php?id=${e.target.id}`;
     }
     apiPost("OverallData", {}, function (resp) {
         var inOut = ["In", "Out"];

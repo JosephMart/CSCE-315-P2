@@ -14,7 +14,7 @@ function HtmlHeader($title)
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Local CSS-->
-    <link rel="stylesheet" type="text/css" media="screen" href="/assets/css/main.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="./assets/css/main.css" />
 
     <!-- Google Charts -->
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -23,7 +23,7 @@ function HtmlHeader($title)
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.21.0/moment.min.js"></script>
     
     <!-- Local JS-->
-    <script src="/assets/js/main.js"></script>
+    <script src="./assets/js/main.js"></script>
 </head>
 HTML;
 }
