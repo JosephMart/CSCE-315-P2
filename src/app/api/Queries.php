@@ -2,7 +2,11 @@
 include_once "CommonMethods.php";
 $COMMON = new Common(false);
 
-
+/**
+ * Calculate the mode of an int array
+ * @param $values array
+ * @return false|int|string
+ */
 function CalculateMode($values) {
     $counts = array_count_values($values);
 
@@ -12,9 +16,14 @@ function CalculateMode($values) {
     return array_search(max($counts), $counts);
 }
 
+/**
+ * Calculate the median of an int array
+ * @param $values array
+ * @return float|int
+ */
 function CalculateMedian($values) {
     $count = sizeof($values);
-    $midVal = floor(($count-1)/2);
+    $midVal = (int)floor(($count-1)/2);
 
     // Calculate median based on if even or odd number of items
     if($count % 2) {
@@ -27,7 +36,12 @@ function CalculateMedian($values) {
     return $median;
 }
 
-
+/**
+ * Calculate analysis data of provided query
+ * @param $subQuery string - with entering and exiting annotated as values
+ * @param $data array
+ * @return mixed
+ */
 function AnalyzeQuery($subQuery, $data)
 {
     global $COMMON;
@@ -46,7 +60,7 @@ function AnalyzeQuery($subQuery, $data)
     FROM ({$subQuery}) as sub;
 SQL;
     $rs = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
-    $result = $rs->fetchAll()[0];
+    $result = $rs->fetch();
 
     $inValues = array();
     $outValues = array();
@@ -72,6 +86,10 @@ SQL;
     return $result;
 }
 
+/**
+ * Get Overall Stats and Week graph data
+ * @return array
+ */
 function GetOverallData()
 {
     global $COMMON;
@@ -98,9 +116,25 @@ SQL;
     ];
 }
 
-function GetOverallLotData($lotId)
+/**
+ * GetLotInfo - general function to get lot info
+ * @param $timeFormat string
+ * @param $lotId int
+ * @param $start string
+ * @param $end string
+ * @return array
+ */
+function GetLotInfo($timeFormat, $lotId, $start, $end)
 {
     global $COMMON;
+
+    $whereStatement = '';
+
+    if(isset($start) && isset($end)) {
+        $whereStatement = <<< SQL
+        AND time >= '{$start}' AND time <= '{$end}'
+SQL;
+    }
 
     $sql = <<< SQL
     SELECT
@@ -111,11 +145,11 @@ function GetOverallLotData($lotId)
         SUM(
           CASE WHEN entering = 0 THEN 1 ELSE 0 END
         ) AS exiting,
-        DATE_FORMAT(time, '%Y-%m-%d') AS date
+        DATE_FORMAT(time, '{$timeFormat}') as date
     FROM
       Vehicle
     INNER JOIN ParkingLot L on Vehicle.lot_id = L.id
-    WHERE Vehicle.lot_id = {$lotId}
+    WHERE Vehicle.lot_id = {$lotId} {$whereStatement}
     GROUP BY date
 SQL;
 
@@ -128,19 +162,74 @@ SQL;
     }
     return [
         "analysis" => AnalyzeQuery($sql, $data),
-        "graphData" => $data,
+        "data" => $data,
         "lotName" => $lotName
     ];
 }
 
+/**
+ * Lot info on a Week basis
+ * @param $lotId int
+ * @param $startDate string
+ * @param $endDate string
+ * @return array
+ */
+function LotByWeek($lotId, $startDate, $endDate)
+{
+    return GetLotInfo('%Y-%U', $lotId, $startDate, $endDate);
+}
+
+
+/**
+ * Lot info on a Day basis
+ * @param $lotId int
+ * @param $startDate string
+ * @param $endDate string
+ * @return array
+ */
+function LotByDay($lotId, $startDate, $endDate)
+{
+    return GetLotInfo('%Y-%m-%d', $lotId, $startDate, $endDate);
+}
+
+/**
+ * Lot info on a Hour basis
+ * @param $lotId int
+ * @param $startDate string
+ * @param $endDate string
+ * @return array
+ */
+function LotByHour($lotId, $startDate, $endDate)
+{
+    return GetLotInfo('%Y-%m-%d %H:00', $lotId, $startDate, $endDate);
+}
+
+/**
+ * Lot info
+ * @param $lotId int
+ * @param $startDate string
+ * @param $endDate string
+ * @return array
+ */
+function GetOverallLotData($lotId, $startDate, $endDate)
+{
+    return [
+        "analysis" => LotByHour($lotId, $startDate, $endDate)["analysis"],
+        "dayGraph" => LotByHour($lotId, $startDate, $endDate)["data"],
+        "lotName" => LotByHour($lotId, $startDate, $endDate)["lotName"]
+    ];
+}
+
+/**
+ * Get all data from ParkingLot table
+ * @return array
+ */
 function GetLots()
 {
     global $COMMON;
 
     $sql = <<< SQL
-    SELECT *
-    FROM
-      ParkingLot
+    SELECT * FROM ParkingLot
 SQL;
 
     $rs = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);

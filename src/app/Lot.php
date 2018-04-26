@@ -71,8 +71,9 @@
             document.getElementById(i).innerHTML = resp.analysis[i];
         }
 
-        BarGraph(resp.graphData, function(date) {
-            return moment(date).format('MM/DD/Y');
+        BarGraph(resp.dayGraph, function(date) {
+            return moment(date).format('hh:mm a');
+            // return moment(date).format('MM/DD/Y');
         });
         document.getElementById('title').innerText = `${resp.lotName} Data`;
     });
@@ -81,6 +82,7 @@
         google.charts.load('current', {'packages': ['corechart']});
         google.charts.setOnLoadCallback(function () {
             var data = google.visualization.arrayToDataTable(resp.data);
+            console.table(resp.data)
             var options = {
                 title: resp.title,
                 height: 1000,

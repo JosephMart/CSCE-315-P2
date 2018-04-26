@@ -15,14 +15,14 @@ Date.prototype.toMysqlFormat = function() {
 };
 
 function genVehiclesQuery(rows) {
-    const query = "INSERT INTO `Vehicle` (`id`, `time`, `entering`, `lot_id`) VALUES\n";
+    const query = "INSERT INTO `Entries` (`record`, `time`, `location`, `Entering`) VALUES\n";
 
     const values = [];
     let date, entering;
     for (let r of rows) {
         date = new Date(r['Purchased Date']).toMysqlFormat();
         entering = r['Entry-Exit'];
-        values.push(`(NULL, '${date}', '${entering}', '1')`);
+        values.push(`(NULL, '${date}', 'Lot 54', ${entering})`);
     }
     return `${query}${values.join(',\n')};`;
 }

@@ -1,6 +1,6 @@
 // API
 function apiPost(endpoint, body, cb) {
-    var xhttp = new XMLHttpRequest();
+    let xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             cb(JSON.parse(this.responseText));
@@ -13,7 +13,7 @@ function apiPost(endpoint, body, cb) {
 }
 
 function getParam(key) {
-    var url = new URL(window.location.href);
+    let url = new URL(window.location.href);
     return url.searchParams.get(key);
 }
 // Nav functions
@@ -26,27 +26,31 @@ function closeNav() {
 }
 
 function BarGraph(dbData, formatDate) {
-    var graphData = [['Date Times', 'Entering', 'Exiting']];
-    var row = {};
+    let graphData = [['Date Times', 'Entering', 'Exiting']];
+    let row = {};
 
 
-    for (var i = 0; i < dbData.length; i++) {
+    for (let i = 0; i < dbData.length; i++) {
         row = dbData[i];
         graphData.push([formatDate(row.date), parseInt(row.exiting, 10), parseInt(row.entering, 10)]);
     }
     // Get Current range dates
-    var endDate = graphData[1][0];
-    var startDate = graphData[graphData.length - 1][0];
+    let endDate = graphData[1][0];
+    let startDate = graphData[graphData.length - 1][0];
 
     function drawChart() {
-        var chartDiv = document.getElementById('chart_div');
-        var data = google.visualization.arrayToDataTable(graphData);
+        let chartDiv = document.getElementById('chart_div');
+        let data = google.visualization.arrayToDataTable(graphData);
 
-        var materialOptions = {
+        let materialOptions = {
             // width: 900,
             chart: {
                 title: 'Lot Info',
                 subtitle: endDate + ' - ' + startDate
+            },
+            trendlines: {
+                0: {},
+                // 1: {type: 'exponential', lineWidth: 10, opacity: .3}
             },
             bars: 'vertical',
             vAxis: {format: 'decimal'},
@@ -55,14 +59,46 @@ function BarGraph(dbData, formatDate) {
         };
 
         function drawMaterialChart() {
-            var materialChart = new google.charts.Bar(chartDiv);
+            let materialChart = new google.charts.Bar(chartDiv);
             materialChart.draw(data, google.charts.Bar.convertOptions(materialOptions));
         }
 
         drawMaterialChart();
-    };
+    }
 
     // Google Charts setup
     google.charts.load('current', {'packages':['corechart', 'bar']});
     google.charts.setOnLoadCallback(drawChart);
+}
+
+function TrendLineGraph(dbData, formatDate) {
+    google.charts.load('current', {packages: ['corechart', 'bar']});
+    google.charts.setOnLoadCallback(drawTrendlines);
+
+    let graphData = [['Date Times', 'Entering', 'Exiting']];
+    let row = {};
+
+
+    for (let i = 0; i < dbData.length; i++) {
+        row = dbData[i];
+        graphData.push([formatDate(row.date), parseInt(row.exiting, 10), parseInt(row.entering, 10)]);
+    }
+    // Get Current range dates
+    let endDate = graphData[1][0];
+    let startDate = graphData[graphData.length - 1][0];
+
+    function drawTrendlines() {
+        let data = google.visualization.arrayToDataTable(graphData);
+
+        let options = {
+            title: 'Lot Info',
+            trendlines: {
+                0: {type: 'linear', lineWidth: 5, opacity: .3},
+                // 1: {type: 'exponential', lineWidth: 10, opacity: .3}
+            }
+        };
+
+        let chart = new google.visualization.ColumnChart(document.getElementById('chart_div2'));
+        chart.draw(data, options);
+    }
 }

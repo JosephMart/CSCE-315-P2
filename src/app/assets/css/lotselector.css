@@ -12,6 +12,8 @@
     padding: 40px 0;
     border-spacing: 20px;
     font-size: 30px;
+    cursor: pointer;
+    transition: 0.4s;
 }
 
 .lot-container > div:hover {
