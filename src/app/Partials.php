@@ -19,6 +19,9 @@ function HtmlHeader($title)
     <!-- Google Charts -->
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     
+    <!-- Moment JS -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.21.0/moment.min.js"></script>
+    
     <!-- Local JS-->
     <script src="/assets/js/main.js"></script>
 </head>
