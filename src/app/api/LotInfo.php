@@ -1,8 +1,13 @@
 <?php
-include_once "Queries.php";
-$req = json_decode(file_get_contents('php://input'), true);
-$LOT_ID = $req['lotId'];
-$start = $req['start'];
-$end = $req['end'];
-
-echo json_encode(GetOverallLotData($LOT_ID, $start, $end));
+/**
+ * File:    LotInfo.php
+ * Project: CSCE 315 Project 2
+ * Date:    04/28/2018
+ *
+ * LotInfo Endpoint - get specific data about a particular lot
+ *
+ */
+include_once "Endpoints.php";
+$route = getRouteName();
+$body = getBody();
+HandleRoute($route, $body);
