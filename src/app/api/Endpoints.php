@@ -9,11 +9,17 @@
  */
 include_once "Queries.php";
 
-/* Maps /api/Request.php to the Route Function */
+/**
+ * ENDPOINTS
+ *
+ * Maps /api/REQUEST.php to the appropriate REQUEST Function
+ * Mapping a string to a function. Function name is a string but callable because PHP can so PHP will
+ */
 $ENDPOINTS = [
     "LotInfo" => "LotInfo",
     "OverallData" => "OverallData",
-    "Lots" => "Lots"
+    "Lots" => "Lots",
+    "LotPrediction" => "LotPrediction"
 ];
 
 /* Endpoints Handlers */
@@ -53,6 +59,12 @@ function Lots()
     return json_encode(GetLots());
 }
 
+function LotPrediction($body)
+{
+    $LOT_ID = $body["lotId"];
+    return $LOT_ID;
+}
+
 /* Util Functions */
 
 /**
@@ -63,7 +75,13 @@ function Lots()
 function HandleRoute($route, $body)
 {
     global $ENDPOINTS;
-    echo $ENDPOINTS[$route]($body);
+
+    try {
+        echo $ENDPOINTS[$route]($body);
+    } catch (Exception $e) {
+        http_response_code(404);
+        die();
+    }
 }
 
 /**
