@@ -63,10 +63,18 @@
     </div>
 </div>
 <script>
+    /**
+     * Hand the lot selection onClick to navigate to the lot page
+     * @param e event
+     */
     function handleLotClick(e) {
         console.log(e.target.id);
         window.location.href = `Lot.php?id=${e.target.id}`;
     }
+
+    /**
+     * Fetch request for overall lot graphs
+     */
     apiPost("OverallData", {}, function (resp) {
         let inOut = ["In", "Out"];
         let names = ["total", "average", "min", "max", "median", "average"];
@@ -84,6 +92,9 @@
         });
     });
 
+    /**
+     * Display lots to select
+     */
     apiPost("Lots", {}, function (resp) {
         for (let i of resp) {
             // create a new div element
