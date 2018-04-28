@@ -7,13 +7,9 @@ $COMMON = new Common(false);
  * @param $values array
  * @return false|int|string
  */
-function CalculateMode($values) {
+function FindMode($values) {
     $counts = array_count_values($values);
-
-    if (max($counts) == 1) {
-        return 'No repeating values';
-    }
-    return array_search(max($counts), $counts);
+    return (max($counts) == 1) ? "No Mode" : array_search(max($counts), $counts);
 }
 
 /**
@@ -21,16 +17,15 @@ function CalculateMode($values) {
  * @param $values array
  * @return float|int
  */
-function CalculateMedian($values) {
+function FindMedian($values) {
     $count = sizeof($values);
-    $midVal = (int)floor(($count-1)/2);
+    $middleIndex = (int)floor(($count-1)/2);
 
-    // Calculate median based on if even or odd number of items
     if($count % 2) {
-        $median = $values[$midVal];
+        $median = $values[$middleIndex];
     } else {
-        $low = $values[$midVal];
-        $high = $values[$midVal+1];
+        $low = $values[$middleIndex];
+        $high = $values[$middleIndex+1];
         $median = (($low+$high)/2);
     }
     return $median;
@@ -76,12 +71,12 @@ SQL;
     sort($outValues);
 
     // Calculate Median
-    $result["medianIn"] = CalculateMedian($inValues);
-    $result["medianOut"] = CalculateMedian($outValues);
+    $result["medianIn"] = FindMedian($inValues);
+    $result["medianOut"] = FindMedian($outValues);
 
     // Calculate Mode
-    $result["modeIn"] = CalculateMode($inValues);
-    $result["modeOut"] = CalculateMode($outValues);
+    $result["modeIn"] = FindMode($inValues);
+    $result["modeOut"] = FindMode($outValues);
 
     return $result;
 }
