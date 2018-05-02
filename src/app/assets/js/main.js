@@ -27,33 +27,20 @@ function closeNav() {
     document.getElementById("mySidenav").className= "navHidden";
 }
 
-function BarGraph(dbData, formatDate) {
+function BarGraph(dbData, formatDate, chartId="chart_div") {
     let graphData = [['Date Times', 'Entering', 'Exiting']];
     let row = {};
-
 
     for (let i = 0; i < dbData.length; i++) {
         row = dbData[i];
         graphData.push([formatDate(row.date), parseInt(row.exiting, 10), parseInt(row.entering, 10)]);
     }
-    // Get Current range dates
-    let endDate = graphData[1][0];
-    let startDate = graphData[graphData.length - 1][0];
 
     function drawChart() {
-        let chartDiv = document.getElementById('chart_div');
+        let chartDiv = document.getElementById(chartId);
         let data = google.visualization.arrayToDataTable(graphData);
 
         let materialOptions = {
-            // width: 900,
-            chart: {
-                title: 'Lot Info',
-                subtitle: endDate + ' - ' + startDate
-            },
-            trendlines: {
-                0: {},
-                // 1: {type: 'exponential', lineWidth: 10, opacity: .3}
-            },
             bars: 'vertical',
             vAxis: {format: 'decimal'},
             height: 400,

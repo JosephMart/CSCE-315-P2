@@ -53,6 +53,28 @@ SQL;
     $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
 }
 
+function LotPredictionQuery($lotId, $dayIndex, $startDate, $endDate) {
+    global $COMMON;
+
+    $sql = <<< SQL
+    SELECT
+      SUM(
+          CASE WHEN entering = 1 THEN 1 ELSE 0 END
+      ) AS entering,
+      SUM(
+          CASE WHEN entering = 0 THEN 1 ELSE 0 END
+      ) AS exiting,
+      DATE_FORMAT(time, '%H:00') AS date
+    FROM Vehicle
+    WHERE lot_id = {$lotId} AND DAYOFWEEK(time) = {$dayIndex} AND time >= '{$startDate}' AND time <= '{$endDate}'
+    GROUP BY date
+    ORDER BY date;
+SQL;
+    $rs = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
+    return $rs->fetchAll();
+//    return $sql;
+}
+
 
 /**
  * Calculate the mode of an int array

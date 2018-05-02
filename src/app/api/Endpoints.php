@@ -19,10 +19,10 @@ $ENDPOINTS = [
     "LotInfo" => "LotInfo",
     "OverallData" => "OverallData",
     "Lots" => "Lots",
-    "LotPrediction" => "LotPrediction",  # TODO
+    "LotPrediction" => "LotPrediction",
     "AddVehicle" => "AddVehicle",
     "ExitingVehicle" => "ExitingVehicle",
-    "AddLot" => "AddLot",  # TODO
+    "AddLot" => "AddLot",
     "RemoveLot" => "RemoveLot",
 ];
 
@@ -66,8 +66,15 @@ function Lots()
 
 function LotPrediction($body)
 {
-    $LOT_ID = $body["lotId"];
-    return $LOT_ID;
+    $startDate = $body["startDate"];
+    $endDate = $body["endDate"];
+    $lotId = $body["lotId"];
+    $dayIndex = $body["dayIndex"];
+
+    $data = LotPredictionQuery($lotId, $dayIndex, $startDate, $endDate);
+
+    return json_encode(["data" => $data]);
+//    return json_encode($startDate);
 }
 
 /**

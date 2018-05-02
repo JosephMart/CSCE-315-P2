@@ -1,16 +1,8 @@
--- phpMyAdmin SQL Dump
--- version 4.8.0
--- https://www.phpmyadmin.net/
---
--- Host: mariadb
--- Generation Time: Apr 21, 2018 at 04:35 AM
--- Server version: 10.2.14-MariaDB-10.2.14+maria~jessie
--- PHP Version: 7.2.4
-
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
 START TRANSACTION;
-SET time_zone = "+00:00";
+SET GLOBAL time_zone = '-6:00';
+SET GLOBAL time_zone = 'US/Central';
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
