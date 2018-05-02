@@ -8,7 +8,7 @@
 <div class="container">
     <div class="section">
         <h1 class="title" id="title">NO DATA FOUND</h1>
-        <div class="grid-container-5">
+        <div class="grid-container grid-container-5">
             <div>
                 <h1 class="grid-title">Total In</h1>
                 <p class="grid-count" id="totalIn"></p>

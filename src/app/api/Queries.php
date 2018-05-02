@@ -12,6 +12,48 @@
 include_once "CommonMethods.php";
 $COMMON = new Common(false);
 
+function VehicleEntering($lotid) {
+    global $COMMON;
+
+    $sql = <<< SQL
+    INSERT INTO `Vehicle` (`id`, `time`, `entering`, `lot_id`)
+    VALUES (NULL, CURRENT_TIMESTAMP, '1', {$lotid});
+SQL;
+    $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
+
+}
+
+function VehicleExiting($lotid) {
+    global $COMMON;
+
+    $sql = <<< SQL
+    INSERT INTO `Vehicle` (`id`, `time`, `entering`, `lot_id`)
+    VALUES (NULL, CURRENT_TIMESTAMP, '0', {$lotid});
+SQL;
+    $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
+}
+
+function DeleteLot($lotid) {
+    global $COMMON;
+
+    $sql = <<< SQL
+    DELETE from `ParkingLot`
+    WHERE id = {$lotid};
+SQL;
+    $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
+}
+
+function InsertLot($lotName) {
+    global $COMMON;
+
+    $sql = <<< SQL
+    INSERT INTO `ParkingLot` (`id`, `name`, `created_date`)
+    VALUES (NULL, '{$lotName}', CURRENT_TIMESTAMP);
+SQL;
+    $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
+}
+
+
 /**
  * Calculate the mode of an int array
  * @param $values array

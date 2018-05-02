@@ -26,6 +26,34 @@ hr {
     padding: 0;
 }
 
+input {
+    border: 5px solid white;
+    -webkit-box-shadow:
+            inset 0 0 8px  rgba(0,0,0,0.1),
+            0 0 16px rgba(0,0,0,0.1);
+    -moz-box-shadow:
+            inset 0 0 8px  rgba(0,0,0,0.1),
+            0 0 16px rgba(0,0,0,0.1);
+    box-shadow:
+            inset 0 0 8px  rgba(0,0,0,0.1),
+            0 0 16px rgba(0,0,0,0.1);
+    padding: 15px;
+    background: rgba(255,255,255,0.5);
+    margin: 0 0 10px 0;
+}
+
+select {
+    width: 150px;
+    padding: 5px 5px 5px 5px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    height: 34px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background: url(https://image.flaticon.com/icons/svg/60/60995.svg) 96% / 15% no-repeat #eee;
+}
+
 .button {
     background-color: #111;
     border: none;
@@ -84,33 +112,27 @@ hr {
     margin-bottom: 100px;
 }
 
-.grid-container-3 {
+.grid-container {
     display: grid;
-    /*grid-template-columns: auto auto auto;*/
+    grid-template-columns: auto auto auto;
     grid-gap: 30px;
     padding: 0;
     justify-content: space-evenly;
-    grid-template-columns: repeat(3, 1fr);
+}
+
+.grid-container-2 {
+    grid-template-columns: repeat(2, 1fr);
 }
 
 .grid-container-5 {
-    display: grid;
-    /*grid-template-columns: auto auto auto;*/
-    grid-gap: 30px;
-    padding: 0;
-    justify-content: space-evenly;
     grid-template-columns: repeat(5, 1fr);
 }
 
 .grid-container-9 {
-    display: grid;
-    /*grid-template-columns: auto auto auto;*/
-    grid-gap: 30px;
-    padding: 0;
-    /*justify-items: center;*/
     grid-template-columns: repeat(9, 1fr);
 }
-.grid-container-5 > div {
+
+.grid-container > div {
     background-color: rgba(255, 255, 255, 0.8);
     text-align: center;
     padding: 40px 0;
@@ -118,12 +140,9 @@ hr {
     font-size: 30px;
 }
 
-.grid-container-3 > div {
-    background-color: rgba(255, 255, 255, 0.8);
+.grid-container button {
+    /*display: block;*/
     text-align: center;
-    padding: 40px 0;
-    border-spacing: 20px;
-    font-size: 30px;
 }
 
 .grid-title {
@@ -164,21 +183,6 @@ hr {
 .clr {
     clear: both;
     font-size: 0;
-}
-
-#note {
-    position: absolute;
-    z-index: 101;
-    top: 0;
-    left: 0;
-    right: 0;
-    background: #fde073;
-    text-align: center;
-    line-height: 2.5;
-    overflow: hidden;
-    -webkit-box-shadow: 0 0 5px black;
-    -moz-box-shadow:    0 0 5px black;
-    box-shadow:         0 0 5px black;
 }
 
 @-webkit-keyframes slideDown {

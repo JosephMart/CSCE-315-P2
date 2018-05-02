@@ -90,7 +90,7 @@ ALTER TABLE `Vehicle`
 -- Constraints for table `Vehicle`
 --
 ALTER TABLE `Vehicle`
-  ADD CONSTRAINT `Vehicle_ibfk_1` FOREIGN KEY (`lot_id`) REFERENCES `ParkingLot` (`id`);
+  ADD CONSTRAINT `Vehicle_ibfk_1` FOREIGN KEY (`lot_id`) REFERENCES `ParkingLot` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -3,7 +3,9 @@ function apiPost(endpoint, body, cb) {
     let xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
-            cb(JSON.parse(this.responseText));
+            if (cb) {
+                cb(JSON.parse(this.responseText));
+            }
         }
     };
 
@@ -102,3 +104,6 @@ function TrendLineGraph(dbData, formatDate) {
         chart.draw(data, options);
     }
 }
+
+// SUCCESS Resononse
+let SUCCESS = 'success';

@@ -19,7 +19,11 @@ $ENDPOINTS = [
     "LotInfo" => "LotInfo",
     "OverallData" => "OverallData",
     "Lots" => "Lots",
-    "LotPrediction" => "LotPrediction"
+    "LotPrediction" => "LotPrediction",  # TODO
+    "AddVehicle" => "AddVehicle",
+    "ExitingVehicle" => "ExitingVehicle",
+    "AddLot" => "AddLot",  # TODO
+    "RemoveLot" => "RemoveLot",
 ];
 
 /* Endpoints Handlers */
@@ -40,6 +44,7 @@ function LotInfo($body)
     $end = $body['end'];
     return json_encode(GetOverallLotData($LOT_ID, $start, $end));
 }
+
 
 /**
  * Get Overall Stats and Week graph data
@@ -63,6 +68,62 @@ function LotPrediction($body)
 {
     $LOT_ID = $body["lotId"];
     return $LOT_ID;
+}
+
+/**
+ * Add a vehicle
+ * @param $body
+ * @return int
+ */
+function AddVehicle($body)
+{
+    $LOT_ID = $body["lotId"];
+    VehicleEntering($LOT_ID);
+    return json_encode([
+        "status" => "success"
+    ]);
+}
+
+/**
+ * Remove a vehicle
+ * @param $body
+ * @return int
+ */
+function ExitingVehicle($body)
+{
+    $LOT_ID = $body["lotId"];
+    VehicleExiting($LOT_ID);
+    return json_encode([
+        "status" => "success"
+    ]);
+}
+
+/**
+ * Add Lot
+ * @param $body
+ * @return int
+ */
+function AddLot($body)
+{
+    $LOT_NAME = $body["lotName"];
+    InsertLot($LOT_NAME);
+    return json_encode([
+        "status" => "success"
+    ]);
+}
+
+/**
+ * Remove Lot
+ * @param $body
+ * @return int
+ */
+function RemoveLot($body)
+{
+    $LOT_ID = $body["lotId"];
+    DeleteLot($LOT_ID);
+    return json_encode([
+        "status" => "success"
+    ]);
 }
 
 /* Util Functions */
