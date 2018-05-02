@@ -108,21 +108,25 @@
         }
     }
 
-    apiPost('LotInfo', { lotId }, function (resp) {
-        let inOut = ["In", "Out"];
-        let names = ["total", "average", "min", "max", "median", "average"];
-        let items = [].concat(...names.map(x => [`${x}${inOut[0]}`, `${x}${inOut[1]}`]));
+    function fetchLotInfo() {
+        apiPost('LotInfo', { lotId }, function (resp) {
+            let inOut = ["In", "Out"];
+            let names = ["total", "average", "min", "max", "median", "average"];
+            let items = [].concat(...names.map(x => [`${x}${inOut[0]}`, `${x}${inOut[1]}`]));
 
-        for (let i of items) {
-            document.getElementById(i).innerHTML = resp.analysis[i];
-        }
+            for (let i of items) {
+                document.getElementById(i).innerHTML = resp.analysis[i];
+            }
 
-        BarGraph(resp.dayGraph, function(date) {
-            let d = moment(date);
-            return `${d.format('hh:mm a')}\n${d.format('M/D')}\n${d.format('ddd')}`;
+            BarGraph(resp.dayGraph, function(date) {
+                let d = moment(date);
+                return `${d.format('hh:mm a')}\n${d.format('M/D')}\n${d.format('ddd')}`;
+            });
+            document.getElementById('title').innerText = `${resp.lotName} Data`;
         });
-        document.getElementById('title').innerText = `${resp.lotName} Data`;
-    });
+        setTimeout(fetchLotInfo, 10000);
+    }
+    fetchLotInfo();
 
     function runModel() {
         let startDate = document.getElementById('start-date').value;

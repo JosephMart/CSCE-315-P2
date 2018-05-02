@@ -59,7 +59,6 @@
 
     <div class="section">
         <div id="chart_div"></div>
-        <div id="chart_div2"></div>
     </div>
 </div>
 <script>
@@ -75,22 +74,23 @@
     /**
      * Fetch request for overall lot graphs
      */
-    apiPost("OverallData", {}, function (resp) {
-        let inOut = ["In", "Out"];
-        let names = ["total", "average", "min", "max", "median", "average"];
-        let items = [].concat(...names.map(x => [`${x}${inOut[0]}`, `${x}${inOut[1]}`]));
-        
-        for (let i of items) {
-            document.getElementById(i).innerHTML = resp.analysis[i];
-        }
+    function fetchOverallData() {
+        apiPost("OverallData", {}, function (resp) {
+            let inOut = ["In", "Out"];
+            let names = ["total", "average", "min", "max", "median", "average"];
+            let items = [].concat(...names.map(x => [`${x}${inOut[0]}`, `${x}${inOut[1]}`]));
 
-        BarGraph(resp.graphData, function(date) {
-            return moment(date).format('MM/DD/Y');
+            for (let i of items) {
+                document.getElementById(i).innerHTML = resp.analysis[i];
+            }
+
+            BarGraph(resp.graphData, function(date) {
+                return moment(date).format('MM/DD/Y');
+            });
         });
-        TrendLineGraph(resp.graphData, function(date) {
-            return moment(date).format('MM/DD/Y');
-        });
-    });
+        setTimeout(fetchOverallData, 10000);
+    }
+    fetchOverallData();
 
     /**
      * Display lots to select
