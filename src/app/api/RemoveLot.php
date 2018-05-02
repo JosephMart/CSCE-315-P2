@@ -1,10 +1,10 @@
 <?php
 /**
- * File:    Lots.php
+ * File:    RemoveLot.php
  * Project: CSCE 315 Project 2
  * Date:    04/28/2018
  *
- * Lots Endpoint - Get all lot info
+ * Remove Lot
  *
  */
 include_once "Endpoints.php";

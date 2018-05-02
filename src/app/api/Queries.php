@@ -12,6 +12,10 @@
 include_once "CommonMethods.php";
 $COMMON = new Common(false);
 
+/**
+ * Add Vehicle entering to lotid
+ * @param int $lotid
+ */
 function VehicleEntering($lotid) {
     global $COMMON;
 
@@ -23,6 +27,10 @@ SQL;
 
 }
 
+/**
+ * Add vehicle exiting to lotid
+ * @param int $lotid
+ */
 function VehicleExiting($lotid) {
     global $COMMON;
 
@@ -33,6 +41,10 @@ SQL;
     $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
 }
 
+/**
+ * Delete lot with id lotid
+ * @param int $lotid
+ */
 function DeleteLot($lotid) {
     global $COMMON;
 
@@ -43,6 +55,10 @@ SQL;
     $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
 }
 
+/**
+ * Create a new lot
+ * @param string $lotName
+ */
 function InsertLot($lotName) {
     global $COMMON;
 
@@ -53,6 +69,15 @@ SQL;
     $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
 }
 
+
+/**
+ * Create lot prediction model by look at past data and taking an average of those values
+ * @param $lotId
+ * @param $dayIndex
+ * @param $startDate
+ * @param $endDate
+ * @return mixed
+ */
 function LotPredictionQuery($lotId, $dayIndex, $startDate, $endDate) {
     global $COMMON;
 

@@ -30,7 +30,7 @@ $ENDPOINTS = [
 
 /**
  * GetOverallLotData for a single `lotId`
- * @param $body ArrayObject
+ * @param array $body
  *  - keys:
  *      `lotId`: Lot DB ID to get data for
  *      `start`: start date for data to be fetched for
@@ -64,6 +64,16 @@ function Lots()
     return json_encode(GetLots());
 }
 
+/**
+ * Generate lot prediction model
+ * @param array $body
+ *  - keys:
+ *      `startDate`: start date for data to be fetched for
+ *      `endDate`: end date for data to be fetched for
+ *      `lotId`: Lot DB ID to get data for
+ *      `'dayIndex`: DB day index where 1 - Sunday 7 - Saturday
+ * @return string
+ */
 function LotPrediction($body)
 {
     $startDate = $body["startDate"];
@@ -78,8 +88,10 @@ function LotPrediction($body)
 }
 
 /**
- * Add a vehicle
- * @param $body
+ * Entering vehicle
+ * @param array $body
+ *  - keys:
+ *      `lotId`: Lot DB ID to add vehicle to
  * @return int
  */
 function AddVehicle($body)
@@ -92,8 +104,10 @@ function AddVehicle($body)
 }
 
 /**
- * Remove a vehicle
- * @param $body
+ * Exiting vehicle
+ * @param array $body
+ *  - keys:
+ *      `lotId`: Lot DB ID to add vehicle to
  * @return int
  */
 function ExitingVehicle($body)
@@ -107,7 +121,7 @@ function ExitingVehicle($body)
 
 /**
  * Add Lot
- * @param $body
+ * @param array $body
  * @return int
  */
 function AddLot($body)
@@ -121,7 +135,7 @@ function AddLot($body)
 
 /**
  * Remove Lot
- * @param $body
+ * @param array $body
  * @return int
  */
 function RemoveLot($body)
@@ -137,8 +151,8 @@ function RemoveLot($body)
 
 /**
  * Given the route, runs the appropriate function passing the body of the request
- * @param $route
- * @param $body
+ * @param string $route
+ * @param array $body
  */
 function HandleRoute($route, $body)
 {
